@@ -1,0 +1,38 @@
+4c) Write a java program for abstract class to find areas of different shapes
+
+Source code:
+abstract class shape {
+abstract void numberOfSides();
+}
+class trapizium extends shape {
+void numberOfSides() {
+System.out.println("A trapezium has 4 sides.");
+}
+}
+class triangle extends shape{
+void numberOfSides(){
+System.out.println("A triangle has 3 sides.");
+}
+}
+class hexagon extends shape {
+void numberOfSides() {
+System.out.println("A hexagon has 6 sides.");
+}
+}
+class geometrical {
+public static void main(String[] args) {
+shape s1 = new trapizium();
+// Creating objects of different shapes
+shape s2 = new triangle();
+shape s3 = new hexagon();
+s1.numberOfSides();
+s2.numberOfSides();
+s3.numberOfSides();
+}
+}
+
+o/p:
+A trapezium has 4 sides
+A triangle has 3 sides
+A hexagon has 6 sides
+
