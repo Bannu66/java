@@ -1,0 +1,54 @@
+5b) Write a JAVA program implement interface. What kind of inheritance can be
+achieved.
+
+5b 1) Source code:
+// Multiple inheritance where both parents are interfaces
+interface A {
+void show();
+}
+interface B {
+void display();
+}
+class C implements A, B {
+public void show() {
+System.out.println("showable");
+}
+public void display() {
+System.out.println("printable");
+}
+}
+class Multiple1 {
+public static void main(String args[]) {
+C obj = new C();
+obj.show();
+
+obj.display();
+}
+}
+
+5b 2)Source code:
+// Multiple inheritance where one parent is interface and other is class
+interface A {
+void show();
+}
+class B {
+void display() {
+System.out.println("printable");
+}
+}
+class C extends B implements A {
+public void show() {
+System.out.println("showable");
+}
+}
+class Multiple2 {
+public static void main(String args[]) {
+C obj = new C();
+obj.show();
+obj.display();
+}
+}
+
+o/p for both:
+showable
+printable
