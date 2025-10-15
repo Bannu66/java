@@ -1,0 +1,28 @@
+5c) Write a JAVA program to implement runtime polymorphism.
+
+Source code:
+class A {
+void display() {
+System.out.println("A class display()");
+}
+void showA() {
+System.out.println("A class show()");
+}
+}
+class B extends A {
+void display()// overriding
+{
+System.out.println("B class display()");
+}
+}
+class OverridingExample {
+public static void main(String args[]) {
+A obj = new B();// here parent is reference to the child object
+obj.display();
+obj.showA();
+}
+}
+
+o/p:
+B class display()
+A class show()
