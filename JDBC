@@ -1,0 +1,108 @@
+To write a java program that connects to database using JDBC, insert values into it and delete
+values from it.
+
+Source Code:
+import java.sql.*;
+import java.util.*;
+public class jdbcExample {
+public static void main(String[] args) {
+int sno, smarks, n;
+String sname;
+Scanner sc = new Scanner(System.in);
+try {
+// Step 1: Load the driver class
+Class.forName("com.mysql.cj.jdbc.Driver"); // Updated driver class
+// Step 2: Create the connection object
+Connection con =
+
+DriverManager.getConnection("jdbc:mysql://localhost:3306/db" + "", "root",
+"root");
+
+System.out.println("Connection established");
+// Step 3: Create the statement objects
+PreparedStatement ps = con.prepareStatement(
+"CREATE TABLE IF NOT EXISTS student (sno INTEGER(10),
+
+sname CHAR(30), smarks INTEGER(3))");
+
+PreparedStatement ps1 = con.prepareStatement("INSERT INTO student
+
+(sno,sname, smarks) VALUES (?, ?, ?)");
+
+PreparedStatement ps2 = con.prepareStatement("DELETE FROM student
+
+WHERE sno = ?");
+
+PreparedStatement update1 = con.prepareStatement("UPDATE student
+
+SET sname = ? WHERE sno = ?");
+
+Statement stmt = con.createStatement();
+// Step 4: Execute the create table query
+ps.executeUpdate();
+// Student table data insertion
+System.out.println("Enter number of records you need to insert:");
+n = sc.nextInt();
+int temp = n;
+while (n > 0) {
+System.out.println("Enter sno, sname and smarks:");
+sno = sc.nextInt();
+sname = sc.next();
+smarks = sc.nextInt();
+ps1.setInt(1, sno);
+ps1.setString(2, sname);
+ps1.setInt(3, smarks);
+ps1.executeUpdate();
+n--;
+}
+System.out.println(temp + " records inserted successfully!");
+
+// Update name to 'rajesh'
+System.out.println("Enter sno to update name to 'rajesh':");
+sno = sc.nextInt();
+update1.setString(1, "rajesh"); // Set the new name
+update1.setInt(2, sno); // Set the sno for the update
+update1.executeUpdate();
+System.out.println("Name updated to 'rajesh' for sno: " + sno);
+// Step 4: Execute the delete query
+System.out.println("Enter sno to delete:");
+sno = sc.nextInt();
+ps2.setInt(1, sno); // Specify the value to delete
+int rowsAffected = ps2.executeUpdate();
+if (rowsAffected > 0) {
+System.out.println(rowsAffected + " records deleted
+
+successfully!");
+} else {
+System.out.println("No matching record found to delete.");
+}
+// Retrieve data from database
+System.out.println("The student table contains:");
+ResultSet rs = stmt.executeQuery("SELECT * FROM student");
+while (rs.next()) {
+System.out.println(rs.getInt(1) + " " + rs.getString(2) +
+
+" " + rs.getInt(3));
+}
+// Drop table
+stmt.executeUpdate("DROP TABLE IF EXISTS student");
+System.out.println("student table dropped");
+con.close();
+sc.close();
+} catch (Exception e) {
+System.out.println(e);
+}
+}
+}
+Output:
+Connection established
+Enter number of records you need to insert:
+4
+Enter sno, sname and smarks:
+1
+subbu
+98
+Enter sno, sname and smarks:
+2
+ramu
+97
